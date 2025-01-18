@@ -14,11 +14,12 @@ import {
 import SubmenuItem from './SubmenuItem'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { NavMenu } from './NavMenu'
+import { SITE_NAME } from '@/utils/constants'
 
 const navItems = [
-    { name: 'Home', href: '/' },
+    // { name: 'Home', href: '/' },
     {
-        name: 'Products',
+        name: 'কোর্স',
         href: '/products',
         submenu: [
             { name: 'Course 1', href: '/products/category-1' },
@@ -26,8 +27,8 @@ const navItems = [
             { name: 'Course 3', href: '/products/category-3' },
         ]
     },
-    { name: 'About', href: '/about' },
-    { name: 'Contact', href: '/contact' },
+    { name: 'ব্লগ', href: '/blog' },
+    { name: 'যোগাযোগ', href: '/contact' },
 ]
 
 export default function Navbar() {
@@ -64,25 +65,27 @@ export default function Navbar() {
     }, [searchQuery]);
 
     return (
-        <nav className="bg-white border-b sticky top-0 z-[99]">
+        <nav className="bg-primary text-white border-b border-b-primary sticky top-0 z-[99]">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     {/* Logo */}
                     <div className="flex-shrink-0">
-                        <Link href="/" className="text-2xl font-bold text-gray-800">Logo</Link>
+                        <Link href="/" className="text-2xl font-bold text-white uppercase">
+                            {SITE_NAME}
+                        </Link>
                     </div>
 
                     {/* Desktop Navigation */}
-                    <div className="hidden xmd:flex items-center space-x-4">
+                    <div className="hidden xmd:flex items-center gap-8">
                         <div className="relative min-w-80 z-10">
-                            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-700 size-5" />
+                            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary-text size-5" />
                             <Input
                                 type="text"
                                 onChange={(e) => setSearchInput(e.target.value)}
                                 value={searchInput}
                                 ref={searchInputRef}
-                                placeholder="Search for course..."
-                                className={`pl-10 rounded-full ${isSearchBoxOpen ? "rounded-bl-none rounded-br-none rounded-tl-2xl rounded-tr-2xl z-50" : ""}`}
+                                placeholder="কোর্স, কিংবা স্কুল প্রোগ্রাম সার্চ করুন..."
+                                className={`pl-10 bg-primary border-primary-text rounded-full ${isSearchBoxOpen ? "rounded-bl-none bg-white text-gray-700 placeholder:text-gray-700 rounded-br-none rounded-tl-2xl rounded-tr-2xl z-50" : "text-primary-text placeholder:text-primary-text"}`}
                                 onFocus={() => setIsSearchBoxOpen(true)}
                             />
                             {searchInput &&
@@ -106,7 +109,7 @@ export default function Navbar() {
                                         onClick={() => setIsSearchBoxOpen(false)}
                                     />
                                     <div className='bg-white h-fit rounded-bl-2xl rounded-br-2xl w-full absolute top-10 py-2.5 overflow-hidden'>
-                                        <span className='text-sm font-medium block ml-4'>Popular searches</span>
+                                        <span className='text-sm font-medium block ml-4 text-gray-500'>Popular searches</span>
                                         <ul className='my-2 space-y-0'>
                                             {
                                                 ['SSC', 'HSC 2025', 'HSC'].map((query) => (
@@ -129,38 +132,42 @@ export default function Navbar() {
 
 
                         </div>
-                        {navItems.map((item) => (
-                            <div key={item.name} className="relative group">
-                                {item.submenu ? (
-                                    <>
-                                        <button className="text-gray-600 hover:text-gray-900 px-3 py-1.5 rounded-md text-sm font-medium flex items-center ring-focus peer">
-                                            {item.name}
-                                            <ChevronDown className="ml-1 h-4 w-4" />
-                                        </button>
-                                        <div className="absolute left-0 mt-0 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible peer-focus-within:opacity-100 peer-focus-within:visible transition-all duration-300 ease-in-out z-50">
-                                            <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                                                {item.submenu.map((subItem) => (
-                                                    <Link
-                                                        key={subItem.name}
-                                                        href={subItem.href}
-                                                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 ring-focus"
-                                                        role="menuitem"
-                                                    >
-                                                        {subItem.name}
-                                                    </Link>
-                                                ))}
+                        <div className="flex gap-0 items-center">
+                            {navItems.map((item) => (
+                                <div key={item.name} className="relative group">
+                                    {item.submenu ? (
+                                        <>
+                                            <button className="text-white hover:text-secondary px-3 py-1.5 rounded-md text-sm font-medium flex items-center ring-focus peer transition-colors duration-200">
+                                                {item.name}
+                                                <ChevronDown className="ml-1 h-4 w-4" />
+                                            </button>
+                                            <div className="absolute left-0 mt-0 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible peer-focus-within:opacity-100 peer-focus-within:visible transition-all duration-300 ease-in-out z-50">
+                                                <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                                                    {item.submenu.map((subItem) => (
+                                                        <Link
+                                                            key={subItem.name}
+                                                            href={subItem.href}
+                                                            className="block px-4 py-2 text-sm text-gray-950 hover:bg-primary hover:text-gray-50 ring-focus"
+                                                            role="menuitem"
+                                                        >
+                                                            {subItem.name}
+                                                        </Link>
+                                                    ))}
+                                                </div>
                                             </div>
-                                        </div>
-                                    </>
-                                ) : (
-                                    <Link href={item.href} className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium ring-focus">
-                                        {item.name}
-                                    </Link>
-                                )}
-                            </div>
-                        ))}
+                                        </>
+                                    ) : (
+                                        <Link href={item.href} className="text-white hover:text-secondary px-3 py-2 rounded-md text-sm font-medium ring-focus transition-colors duration-200">
+                                            {item.name}
+                                        </Link>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
                         <Link href="/auth/login">
-                            <Button className={isSearchBoxOpen ? 'z-[-10]' : ''}>Login</Button>
+                            <Button variant="secondary" className={`font-semibold ${isSearchBoxOpen ? 'z-[-10]' : ''}`}>
+                                লগ-ইন
+                            </Button>
                         </Link>
                         <NavMenu />
                     </div>

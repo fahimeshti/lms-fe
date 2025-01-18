@@ -9,9 +9,9 @@
     --card-foreground: 0 0% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
+    --primary: 248, 70%, 54%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
+    --secondary: 34, 100%, 50%;
     --secondary-foreground: 0 0% 9%;
     --muted: 0 0% 96.1%;
     --muted-foreground: 0 0% 45.1%;
@@ -65,9 +65,32 @@
   }
 }
 
+/* body {
+  background: hsla(250, 52%, 16%);
+  color: white;
+} */
+
 .custom-container {
   @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
 }
+
+.home-hero {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("/banner-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  min-height: 60vh;
+}
+/* 
+.home-hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1; 
+} */
 
 .ring-focus {
   @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2;
@@ -88,7 +111,7 @@
 .swiper-pagination-bullet.swiper-pagination-bullet-active {
   width: 16px !important;
   border-radius: 10px;
-  background-color: theme("colors.primary.DEFAULT");
+  background-color: theme("colors.primary.DEFAULT") !important;
 }
 
 .swiper-slide {

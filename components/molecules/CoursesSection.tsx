@@ -8,8 +8,10 @@ import CourseCard from "../common/CourseCard";
 const CoursesSection = () => {
     return (
         <div className="custom-container py-6 lg:py-12">
-            <h1 className="text-4xl font-bold text-gray-800 mt-8 mb-4 text-center">Courses</h1>
-            <p className="text-gray-600 text-center">Choose from a wide range of courses</p>
+            <h1 className="text-4xl font-bold text-gray-700 mt-8 mb-4 text-center">
+                আমাদের কোর্স সমুহঃ
+            </h1>
+            <p className="text-gray-500 text-center">সেরা শিক্ষকদের পরিচর্যায় দেশের যেকোন প্রান্ত থেকে অব্যাহত থাকুক পড়াশুনার অগ্রযাত্রা</p>
             <CoursesSliderContainer
                 slidesPerView={1}
                 spaceBetween={30}
@@ -59,7 +61,7 @@ const CoursesSection = () => {
 
             {/* all courses button */}
             <div className="flex justify-center">
-                <button className="bg-primary hover:bg-primary/90 group flex items-center gap-2 text-white px-6 py-2.5 rounded-lg hover:bg-primary-dark transition-colors duration-150">
+                <button className="bg-primary hover:bg-primary group flex items-center gap-2 text-white px-6 py-2.5 rounded-lg hover:bg-primary-dark transition-colors duration-300">
                     View All Courses
                     <ArrowRight size={18} className="group-hover:translate-x-1 transition-all duration-200" />
                 </button>

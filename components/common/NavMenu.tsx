@@ -22,11 +22,13 @@ export function NavMenu() {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <div className="flex items-center gap-2 cursor-pointer">
-                    <Button variant="ghost" className="relative h-8 w-8 rounded-full bg-red-100">
-                        <Avatar className="h-8 w-8">
+                <div className="flex items-center gap-2 cursor-pointer hover:bg-black/5 py-1.5 rounded-md px-2.5">
+                    <Button variant="ghost" className="relative h-8 w-8 rounded-full text-black">
+                        <Avatar className="h-7 w-7">
                             <AvatarImage src="/avatars/01.png" alt={username} />
-                            <AvatarFallback><User className="h-4 w-4" /></AvatarFallback>
+                            <AvatarFallback>
+                                <User className="h-4 w-4" />
+                            </AvatarFallback>
                         </Avatar>
                     </Button>
                     <p className="text-sm font-medium leading-none max-w-20 truncate">{username}</p>
