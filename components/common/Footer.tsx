@@ -21,7 +21,7 @@ export default function Footer() {
                     {/* Second Column: Important Links */}
                     <div>
                         <h3 className="text-sm font-semibold text-primary-text uppercase tracking-wider">গুরুত্বপূর্ণ লিঙ্কসঃ</h3>
-                        <ul className="mt-4 space-y-4">
+                        <ul className="mt-4 space-y-1">
                             <li>
                                 <Link href="/terms" className="text-base text-primary-text hover:text-secondary transition-colors duration-200">
                                     ব্যবহারকারীর শর্তাবলি
@@ -48,7 +48,7 @@ export default function Footer() {
                     {/* Third Column: Additional Links */}
                     <div>
                         <h3 className="text-sm font-semibold text-primary-text uppercase tracking-wider">অন্যান্য</h3>
-                        <ul className="mt-4 space-y-4">
+                        <ul className="mt-4 space-y-1">
                             <li>
                                 <Link href="/blog" className="text-base text-primary-text hover:text-secondary transition-colors duration-200">
                                     ব্লগ
@@ -75,7 +75,7 @@ export default function Footer() {
                     {/* Fourth Column: Contact Information */}
                     <div>
                         <h3 className="text-sm font-semibold text-primary-text uppercase tracking-wider">আমাদের যোগাযোগ মাধ্যম</h3>
-                        <ul className="mt-4 space-y-4">
+                        <ul className="mt-4 space-y-1">
                             <li className='text-primary-text'>
                                 কল করুন:{" "}
                                 <Link

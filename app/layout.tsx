@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import WhatsappContact from "@/components/common/WhatsappContact";
 import { SITE_NAME } from "@/utils/constants";
+import { AuthProvider } from "@/context/AuthContext";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,7 +32,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <WhatsappContact />
-        {children}
+        <AuthProvider>
+          {children}
+        </AuthProvider>
+        <Toaster />
       </body>
     </html>
   );

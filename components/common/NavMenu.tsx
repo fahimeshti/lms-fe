@@ -15,52 +15,61 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { ChevronDown, User } from 'lucide-react'
+import { useAuth } from "@/context/AuthContext";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export function NavMenu() {
-    const username = "John Doe" // Replace with actual username logic
+    const { userProfile, logout } = useAuth();
+    const router = useRouter();
 
+    const handleLogout = () => {
+        logout();
+        router.push('/');
+    }
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <div className="flex items-center gap-2 cursor-pointer hover:bg-black/5 py-1.5 rounded-md px-2.5">
                     <Button variant="ghost" className="relative h-8 w-8 rounded-full text-black">
                         <Avatar className="h-7 w-7">
-                            <AvatarImage src="/avatars/01.png" alt={username} />
+                            <AvatarImage src="/avatars/01.png" alt={userProfile?.full_name} />
                             <AvatarFallback>
                                 <User className="h-4 w-4" />
                             </AvatarFallback>
                         </Avatar>
                     </Button>
-                    <p className="text-sm font-medium leading-none max-w-20 truncate">{username}</p>
+                    <p className="text-sm font-medium leading-none max-w-20 truncate">{userProfile?.full_name}</p>
                     <ChevronDown size={20} className="ml-2" />
                 </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56 z-[999]" align="end">
                 <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
-                        <p className="text-sm font-medium leading-none">{username}</p>
+                        <p className="text-sm font-medium leading-none">{userProfile?.full_name}</p>
                         <p className="text-xs leading-none text-muted-foreground">
-                            john.doe@example.com
+                            {userProfile?.email}
                         </p>
                     </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
                     <DropdownMenuItem>
-                        Profile
-                        <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+                        <Link href="/profile">
+                            My Purchases
+                        </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>
+                    {/* <DropdownMenuItem>
                         Billing
                         <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
                     </DropdownMenuItem>
                     <DropdownMenuItem>
                         Settings
                         <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-                    </DropdownMenuItem>
+                    </DropdownMenuItem> */}
                 </DropdownMenuGroup>
-                <DropdownMenuSeparator />
-                <DropdownMenuGroup>
+                {/* <DropdownMenuSeparator /> */}
+                {/* <DropdownMenuGroup>
                     <DropdownMenuItem>Team</DropdownMenuItem>
                     <DropdownMenuSub>
                         <DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
@@ -77,13 +86,12 @@ export function NavMenu() {
                         New Team
                         <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
                     </DropdownMenuItem>
-                </DropdownMenuGroup>
+                </DropdownMenuGroup> */}
+                {/* <DropdownMenuSeparator />
+                <DropdownMenuItem>Support</DropdownMenuItem> */}
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Support</DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={handleLogout}>
                     Log out
-                    <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>

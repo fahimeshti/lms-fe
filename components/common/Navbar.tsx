@@ -12,33 +12,41 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import SubmenuItem from './SubmenuItem'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { NavMenu } from './NavMenu'
 import { SITE_NAME } from '@/utils/constants'
+import { useAuth } from '@/context/AuthContext'
+
+type NavItemsType = {
+    name: string;
+    href: string;
+    submenu?: { name: string; href: string }[];
+}
 
 const navItems = [
-    // { name: 'Home', href: '/' },
     {
-        name: 'কোর্স',
-        href: '/products',
-        submenu: [
-            { name: 'Course 1', href: '/products/category-1' },
-            { name: 'Course 2', href: '/products/category-2' },
-            { name: 'Course 3', href: '/products/category-3' },
-        ]
+        name: 'সকল কোর্স',
+        href: '/courses',
+        // submenu: [
+        //     { name: 'Course 1', href: '/products/category-1' },
+        //     { name: 'Course 2', href: '/products/category-2' },
+        //     { name: 'Course 3', href: '/products/category-3' },
+        // ]
     },
     { name: 'ব্লগ', href: '/blog' },
-    { name: 'যোগাযোগ', href: '/contact' },
+    // { name: 'যোগাযোগ', href: '/contact' },
 ]
 
 export default function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isSearchBoxOpen, setIsSearchBoxOpen] = useState(false);
     const router = useRouter();
+    const pathname = usePathname();
     const searchParams = useSearchParams();
     const searchQuery = searchParams.get('query');
     const [searchInput, setSearchInput] = useState(searchQuery || '');
     const searchInputRef = useRef<HTMLInputElement>(null);
+    const { isAuthenticated } = useAuth();
 
     const iconBaseClasses =
         "block absolute h-0.5 w-4 rounded-[2px] bg-current transform transition duration-300 ease-in-out";
@@ -133,7 +141,7 @@ export default function Navbar() {
 
                         </div>
                         <div className="flex gap-0 items-center">
-                            {navItems.map((item) => (
+                            {navItems.map((item: NavItemsType) => (
                                 <div key={item.name} className="relative group">
                                     {item.submenu ? (
                                         <>
@@ -157,19 +165,23 @@ export default function Navbar() {
                                             </div>
                                         </>
                                     ) : (
-                                        <Link href={item.href} className="text-white hover:text-secondary px-3 py-2 rounded-md text-sm font-medium ring-focus transition-colors duration-200">
+                                        <Link href={item.href} className={`hover:text-secondary px-3 py-2 rounded-md text-sm font-medium ring-focus transition-colors duration-200 ${pathname === item.href ? 'text-secondary' : 'text-white'
+                                            }`}>
                                             {item.name}
                                         </Link>
                                     )}
                                 </div>
                             ))}
                         </div>
-                        <Link href="/auth/login">
-                            <Button variant="secondary" className={`font-semibold ${isSearchBoxOpen ? 'z-[-10]' : ''}`}>
-                                লগ-ইন
-                            </Button>
-                        </Link>
-                        <NavMenu />
+                        {isAuthenticated ?
+                            <NavMenu />
+                            :
+                            <Link href="/auth/login">
+                                <Button variant="secondary" className={`font-semibold ${isSearchBoxOpen ? 'z-[-10]' : ''}`}>
+                                    লগ-ইন
+                                </Button>
+                            </Link>
+                        }
                     </div>
 
                     {/* Mobile menu button */}
@@ -205,7 +217,7 @@ export default function Navbar() {
                             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 size-5" />
                             <Input type="text" placeholder="Search for course..." className="pl-10 w-full rounded-full" />
                         </div> */}
-                            {navItems.map((item) => (
+                            {navItems.map((item: NavItemsType) => (
                                 <div key={item.name}>
                                     {item.submenu ? (
                                         <SubmenuItem item={item} />
