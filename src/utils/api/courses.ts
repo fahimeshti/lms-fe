@@ -7,7 +7,11 @@ export const getCourses = () => {
 };
 
 export const getCourse = (id: string) => {
-  return axios.get(`${API_ROOT}/api/v1/courses/private/${id}`);
+  return axios.get(`${API_ROOT}/api/v1/courses/private/${id}/admin`, {
+    headers: {
+      Authorization: `Bearer ${getAccessToken()}`,
+    },
+  });
 };
 
 export const addCourse = (data: any) => {

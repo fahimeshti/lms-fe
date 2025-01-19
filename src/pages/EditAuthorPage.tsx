@@ -19,14 +19,6 @@ const FormSchema = z.object({
   experience: z.string().optional(),
 });
 
-const dummyData = {
-  "id": "1",
-  "name": "Will Smith",
-  "image": "",
-  "institution": "Some University",
-  "experience": "25 years of teaching experience"
-};
-
 const EditAuthorPage = () => {
   const { id } = useParams<{ id: string }>();
 
@@ -120,16 +112,20 @@ const EditAuthorPage = () => {
           Courses by this author
         </div>
         <div className='px-8 mt-4'>
-          {authorData?.data?.data?.courses?.map((course: any) => (
-            <div key={course.id} className='flex justify-between items-center border-b border-gray-200 py-4'>
-              <div className='text-gray-700'>
-                {course.title}
-              </div>
-              <div>
-                {course.description}
-              </div>
-            </div>
-          ))}
+          {
+            authorData?.data?.data?.courses?.length > 0 ?
+              authorData?.data?.data?.courses?.map((course: any) => (
+                <div key={course.id} className='flex justify-between items-center border-b border-gray-200 py-4'>
+                  <div className='text-gray-700'>
+                    {course.title}
+                  </div>
+                  <div>
+                    {course.description}
+                  </div>
+                </div>
+              ))
+              : <div className='text-gray-500 text-center py-8'>No courses found</div>
+          }
         </div>
       </div>
     </>

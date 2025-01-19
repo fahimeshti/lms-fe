@@ -4,6 +4,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import Input from '../components/Input';
 import ImageInput from '../components/Image/ImageInput';
+import { addAuthor } from '../utils/api/authors';
+import { useApi } from '../hooks/useApiCall';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const FormSchema = z.object({
   name: z.string().nonempty(),
@@ -13,6 +17,12 @@ const FormSchema = z.object({
 });
 
 const AddAuthorPage = () => {
+  const navigate = useNavigate();
+  const { execute: addAuthorApi, loading: loadingAdd } = useApi<any, any>(
+    addAuthor,
+    false,
+    true,
+  );
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -25,7 +35,11 @@ const AddAuthorPage = () => {
   });
 
   const onSubmit = (data: z.infer<typeof FormSchema>) => {
-    console.log(data);
+    addAuthorApi(data).then(() => {
+      toast.success('Author added successfully');
+      navigate('/authors');
+    }
+    );
   }
 
   return (
@@ -63,7 +77,8 @@ const AddAuthorPage = () => {
 
         <div className="flex justify-end">
           <button
-            className="rounded-md bg-primary py-3 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
+            disabled={loadingAdd}
+            className="rounded-md bg-primary py-3 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10 disabled:bg-gray-500 disabled:cursor-not-allowed"
           >
             Save
           </button>
