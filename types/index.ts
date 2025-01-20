@@ -24,4 +24,21 @@ export type CourseT = {
   updatedAt: string;
   privateCourses: PrivateCourse;
   instructors: InstructorT[];
+  tags?: string[];
+};
+
+export type BlogPost = {
+  id: string;
+  title: string;
+  content: string;
+  thumbnail: string;
+  coverImage: string;
+  createdAt: string;
+  updatedAt: string;
+  author?: Author;
+};
+
+type Author = {
+  name: string;
+  image: string;
 };

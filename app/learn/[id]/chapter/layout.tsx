@@ -100,7 +100,7 @@ const MyCourseDetailsPageLayout = ({
                                                                     )}
                                                                     prefetch={false}
                                                                 >
-                                                                    <PlayIcon className="h-5 w-5" />
+                                                                    <PlayIcon className="h-4 w-4 min-h-4 min-w-4" />
                                                                     {lesson.title}
                                                                 </Link>
                                                             </li>

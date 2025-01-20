@@ -17,7 +17,6 @@ const CoursesSliderContainer = ({ children, navigations, wrapperClasses, ...prop
                     <Swiper
                         {...props}
                     >
-
                         {children}
                     </Swiper>
                 </div>

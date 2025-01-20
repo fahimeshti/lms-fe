@@ -25,7 +25,7 @@ export function NavMenu() {
 
     const handleLogout = () => {
         logout();
-        router.push('/');
+        window.location.href = "/";
     }
     return (
         <DropdownMenu>

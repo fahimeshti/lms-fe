@@ -5,17 +5,21 @@ import { Button } from "../ui/button";
 
 const CourseCard = ({ data, purchased }: { data: CourseT, purchased?: boolean }) => {
     return (
-        <Link href={purchased ? `/learn/${data.id}` : `/product/${data.id}`} className="border hover:shadow bg-white block rounded-lg w-fit overflow-hidden transition-all duration-200">
-            <div className="w-full">
+        <Link href={purchased ? `/learn/${data.id}` : `/product/${data.id}`} className="border w-full hover:shadow bg-white block rounded-lg overflow-hidden transition-all duration-200">
+            <div className="w-full min-h-40 max-h-40 h-40 overflow-hidden">
                 <img src={data.thumbnail || IMAGE_FALLBACK} alt="" className="object-cover w-full h-full" />
             </div>
 
-            <div className="p-4">
-                <h3 className="text-lg font-semibold line-clamp-2">{data.title}</h3>
-                <p className="text-sm text-gray-500 font-medium truncate">Instructor Name</p>
-                <p className="text-sm text-gray-500 line-clamp-3 mt-2">
-                    Course Description Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam laboriosam hic pariatur nisi minus in impedit est? Ratione fugiat corporis iste, illum eius soluta voluptate rerum, impedit sed adipisci at.
-                </p>
+            <div className="p-4 min-h-[12rem] max-h-[12rem] flex justify-between flex-col">
+                <div>
+                    <h3 className="text-lg font-semibold line-clamp-2">{data.title}</h3>
+                    <p className="text-sm text-gray-500 font-medium truncate">
+                        {data.instructors.map((instructor) => instructor.name).join(", ")}
+                    </p>
+                    <p className="text-sm text-gray-500 line-clamp-2 mt-2">
+                        {data.description}
+                    </p>
+                </div>
 
                 {
                     purchased ?
@@ -25,7 +29,7 @@ const CourseCard = ({ data, purchased }: { data: CourseT, purchased?: boolean })
                             </Button>
                         </div>
                         :
-                        <p className="font-semibold text-primary text-lg mt-2">৳400</p>
+                        <p className="font-bold text-primary text-xl mt-2">৳{data.price}</p>
                 }
 
             </div>

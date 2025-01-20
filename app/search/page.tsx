@@ -10,31 +10,68 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Footer from "@/components/common/Footer";
+import { getCourses } from "@/utils/api/courses";
+import { useApi } from "@/hooks/useApiCall";
+import { useEffect, useState } from "react";
+import { CourseT } from "@/types";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const SearchPage = () => {
+    const router = useRouter();
+    const [loading, setLoading] = useState(true);
     const searchParams = useSearchParams();
     const searchQuery = searchParams.get('query');
+    const searchFilter = searchParams.get('filter');
+    const { data: courses, execute: fetchCourses, loading: apiLoading } = useApi<any, any>(
+        getCourses,
+        false,
+        true,
+    );
+    const courseList = courses?.data?.data;
+
+    // set loading state based on api loading
+    useEffect(() => {
+        setLoading(apiLoading);
+    }, [apiLoading]);
+
+    // fetch courses based on search query
+    useEffect(() => {
+        if (searchQuery) {
+            fetchCourses(searchQuery, searchFilter);
+        }
+    }, [searchQuery, searchFilter]);
+
+    const handleFilterChange = (value: string) => {
+        const params = new URLSearchParams();
+        if (searchQuery) params.append("query", searchQuery);
+        if (value) params.append("filter", value);
+        router.push(`/search?${params.toString()}`);
+    }
 
     return (
         <>
             <Navbar />
             <div className="custom-container pb-12">
                 <div className="text-sm text-left mt-4 text-gray-950 font-normal flex items-center justify-between">
-                    <div>
-                        Showing 1 - 10 of 14 results for <span className="font-semibold">"{searchQuery}"</span>
-                    </div>
+                    {loading ?
+                        <Skeleton className="h-8 w-1/2" />
+                        :
+                        <div>
+                            {courseList?.length} results found for <span className="font-semibold">"{searchQuery}"</span>
+                        </div>
+                    }
                     <div className="flex items-center gap-2">
                         <div className="font-medium">Sorted by:</div>
-                        <Select defaultValue="most-relavant">
+                        <Select defaultValue="desc" onValueChange={handleFilterChange} disabled={loading}>
                             <SelectTrigger className="w-[180px]">
                                 <SelectValue placeholder="Select" />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectGroup>
-                                    <SelectItem value="most-relavant">Most Relavant</SelectItem>
-                                    <SelectItem value="latest">Latest</SelectItem>
+                                    <SelectItem value="desc">Latest</SelectItem>
+                                    <SelectItem value="asc">Oldest</SelectItem>
                                 </SelectGroup>
                             </SelectContent>
                         </Select>
@@ -42,38 +79,49 @@ const SearchPage = () => {
                 </div>
 
                 <ul className="mt-4 space-y-5">
-                    {
-                        Array.from({ length: 10 }).map((_, i) => (
+                    {loading ?
+                        Array.from({ length: 3 }).map((_, i) => (
+                            <Skeleton className="h-32 w-full" />
+                        )) :
+                        courseList?.map((course: CourseT, i: number) => (
                             <li className="">
-                                <Link href={`/product/${i}`} className="text-gray-950 border rounded-md p-4 flex items-start gap-4 hover:border-primary/30 transition-colors duration-150">
+                                <Link href={`/product/${course.id}`} className="text-gray-950 border rounded-md p-4 flex items-start gap-4 hover:border-primary/30 transition-colors duration-150">
                                     <div
                                         className="rounded-md overflow-hidden h-28 w-52">
                                         <img
-                                            src="https://cdn.10minuteschool.com/images/thumbnails/ssc-2025-business-studies-final-preparation-course-sqr-thumbnail.png?w=198&h=109"
+                                            src={course.thumbnail}
                                             alt=""
                                             className="object-cover w-full h-full"
                                         />
                                     </div>
                                     <div className="h-full">
                                         <h2 className="text-lg font-semibold text-gray-950 hover:text-primary line-clamp-6">
-                                            SSC 2025 Business Studies Final Preparation Course
+                                            {course.title}
                                         </h2>
-                                        <span className="text-gray-600 font-medium text-sm block mt-2 mb-1">
-                                            Author name
+                                        <span className="text-gray-600 font-medium text-sm mt-2 mb-1 flex gap-2">
+                                            {
+                                                course?.instructors?.map((instructor) => (
+                                                    <span className="text-gray-600">
+                                                        {instructor.name}
+                                                    </span>
+                                                ))
+                                            }
                                         </span>
-                                        <span className="text-gray-600 bg-gray-200 block w-fit px-1.5 py-px rounded-md font-semibold text-sm">
-                                            SSC
-                                        </span>
+                                        {course?.tags ?
+                                            <span className="text-gray-600 bg-gray-200 block w-fit px-1.5 py-px rounded-md font-semibold text-sm">
+                                                {course.tags}
+                                            </span>
+                                            : null}
                                     </div>
 
                                     <div className="ml-auto">
                                         {/* pricing */}
                                         <div className="text-right">
                                             <span className="text-primary font-semibold text-lg">
-                                                ৳ 500
+                                                ৳{course.price}
                                             </span>
                                             <span className="text-primary text-sm line-through block font-medium text-[#6b7280]">
-                                                ৳ 1500
+                                                ৳{course.oldPrice}
                                             </span>
                                         </div>
                                     </div>

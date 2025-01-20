@@ -40,8 +40,9 @@ export const useApi = <T = any, R = AxiosResponse<T>>(
         setData(response);
         return true;
       } catch (err: any) {
-        if (showError)
+        if (showError) {
           if (
+            err?.response?.data?.data &&
             !err?.response?.data?.includes(
               "TypeError: Cannot read properties of undefined "
             )
@@ -52,6 +53,7 @@ export const useApi = <T = any, R = AxiosResponse<T>>(
                 "Something went wrong! Please try again."
             );
           }
+        }
 
         setError(err as Error);
         setData(null);

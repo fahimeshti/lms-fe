@@ -17,6 +17,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import toast from "react-hot-toast";
 import Spinner from "@/components/atoms/Spinner";
 import Link from "next/link";
+import { getAccessToken } from "@/utils/storage";
 
 function getScrollDistanceFromTop(): number {
     return window.scrollY || document.documentElement.scrollTop || 0;
@@ -40,18 +41,17 @@ const SingleProduct = () => {
         false,
         true
     );
-    const { data: isCoursePurchased, loading: isCoursePurchasedLoading } = useApi<any, any>(
+    const { data: isCoursePurchased, loading: isCoursePurchasedLoading, execute: fetchIsPurchased } = useApi<any, any>(
         purchasedCourse,
+        false,
         true,
-        true,
-        id
     );
 
     const course = courseData?.data?.data;
 
     const chapters = course?.privateCourses?.chapters;
 
-    const innerWidth = typeof window !== "undefined" ? window.innerWidth : 0;
+    const innerWidth = window.innerWidth || 0;
 
     const getDistanceFromLeft = (element: HTMLElement): number => {
         const padding = window.innerWidth > 1024 ? 48 : 24;
@@ -60,7 +60,7 @@ const SingleProduct = () => {
 
     useEffect(() => {
         const updateDistance = () => {
-            if (stickyElementRef.current) {
+            if (typeof window !== "undefined" && stickyElementRef.current) {
                 setDistanceFromLeft(getDistanceFromLeft(stickyElementRef.current));
             }
         };
@@ -92,8 +92,13 @@ const SingleProduct = () => {
     }
 
     useEffect(() => {
-        console.log(coursePurchaseData?.data);
-        
+        const token = getAccessToken();
+        if (token) {
+            fetchIsPurchased(id);
+        }
+    }, [id]);
+
+    useEffect(() => {
         if (coursePurchaseData?.data?.success) {
             toast.success("Course purchased successfully");
         }

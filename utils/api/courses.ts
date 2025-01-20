@@ -1,55 +1,32 @@
-import { API_ROOT } from "../constants";
-import axios from "axios";
-import { getAccessToken } from "../storage";
+import axiosInstance from "./config";
 
-export const getCourses = () => {
-  return axios.get(`${API_ROOT}/api/v1/courses`);
+export const getCourses = (query?: string, filter: "asc" | "desc" = "desc") => {
+  const params = new URLSearchParams();
+  if (query) params.append("query", query);
+  if (filter) params.append("filter", filter);
+  return axiosInstance.get(`/courses?${params.toString()}`);
 };
 export const getPublicCourse = (id: string) => {
-  return axios.get(`${API_ROOT}/api/v1/courses/${id}`);
+  return axiosInstance.get(`/courses/${id}`);
 };
 export const getPurchasedCourse = (id: string) => {
-  return axios.get(`${API_ROOT}/api/v1/courses/purchased`, {
-    headers: {
-      Authorization: `Bearer ${getAccessToken()}`,
-    },
-  });
+  return axiosInstance.get(`/courses/purchased`);
 };
 
 // get private course
 export const getPrivateCourse = (id: string) => {
-  return axios.get(`${API_ROOT}/api/v1/courses/private/${id}`, {
-    headers: {
-      Authorization: `Bearer ${getAccessToken()}`,
-    },
-  });
+  return axiosInstance.get(`/courses/private/${id}`);
 };
 
 // purchase course
 export const purchaseCourse = (id: string) => {
-  return axios.post(
-    `${API_ROOT}/api/v1/courses/purchase/${id}`,
-    {},
-    {
-      headers: {
-        Authorization: `Bearer ${getAccessToken()}`,
-      },
-    }
-  );
+  return axiosInstance.post(`/courses/purchase/${id}`, {});
 };
 
 export const purchasedCourse = (id: string) => {
-  return axios.get(`${API_ROOT}/api/v1/courses/purchased/${id}`, {
-    headers: {
-      Authorization: `Bearer ${getAccessToken()}`,
-    },
-  });
+  return axiosInstance.get(`/courses/purchased/${id}`);
 };
 
 export const getLecture = (lectureId: string) => {
-  return axios.get(`${API_ROOT}/api/v1/courses/lectures/${lectureId}`, {
-    headers: {
-      Authorization: `Bearer ${getAccessToken()}`,
-    },
-  });
+  return axiosInstance.get(`/courses/lectures/${lectureId}`);
 };

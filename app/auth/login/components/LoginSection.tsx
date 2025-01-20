@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { AUTH_TOKEN_KEY, USER_PROFILE_KEY } from "@/utils/constants";
 import toast from "react-hot-toast";
+import { useSearchParams } from "next/navigation";
 
 
 const FormSchema = z.object({

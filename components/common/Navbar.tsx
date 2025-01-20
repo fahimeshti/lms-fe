@@ -16,6 +16,8 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { NavMenu } from './NavMenu'
 import { SITE_NAME } from '@/utils/constants'
 import { useAuth } from '@/context/AuthContext'
+import { useApi } from '@/hooks/useApiCall'
+import { getCourses } from '@/utils/api/courses'
 
 type NavItemsType = {
     name: string;
@@ -89,6 +91,12 @@ export default function Navbar() {
                             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary-text size-5" />
                             <Input
                                 type="text"
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') {
+                                        handleSearchItemClick(e, searchInput);
+                                        searchInputRef.current?.blur();
+                                    }
+                                }}
                                 onChange={(e) => setSearchInput(e.target.value)}
                                 value={searchInput}
                                 ref={searchInputRef}

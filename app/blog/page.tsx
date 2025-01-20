@@ -1,33 +1,38 @@
 import Navbar from '@/components/common/Navbar'
 import Link from 'next/link'
 import Footer from '@/components/common/Footer'
+import { API_ROOT } from '@/utils/constants'
+import { BlogPost } from '@/types';
 
-// Mock data for blog posts
-const blogPosts = [
-    {
-        id: 1,
-        img: "https://fakeimg.pl/600x400",
-        title: "Getting Started with Next.js",
-        excerpt: "Learn how to build fast and efficient web applications with Next.js, the React framework for production.",
-        date: "2023-05-15"
-    },
-    {
-        id: 2,
-        img: "https://fakeimg.pl/600x400",
-        title: "Mastering Tailwind CSS",
-        excerpt: "Discover the power of utility-first CSS with Tailwind and create beautiful, responsive designs quickly.",
-        date: "2023-05-10"
-    },
-    {
-        id: 3,
-        img: "https://fakeimg.pl/600x400",
-        title: "The Future of Web Development",
-        excerpt: "Explore emerging trends and technologies that are shaping the future of web development.",
-        date: "2023-05-05"
+export async function getAllBlogs() {
+    const API_BASE_URL = `${API_ROOT}/api/v1/blog`;
+
+    try {
+        const response = await fetch(API_BASE_URL, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(
+                errorData.message || "Failed to fetch blogs. Please try again."
+            );
+        }
+
+        return await response.json();
+    } catch (error: any) {
+        console.error("Error fetching blogs from server:", error.message);
+        throw error;
     }
-]
+}
 
-export default function BlogPage() {
+
+export default async function BlogPage() {
+    const blogs = await getAllBlogs();
+
     return (
         <>
             <Navbar />
@@ -36,30 +41,30 @@ export default function BlogPage() {
                     Latest Blog
                 </h1>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-5">
-                    {blogPosts.map((post) => (
+                    {blogs?.data?.map((post: BlogPost) => (
                         <Link
+                            key={post.id}
                             href={`/blog/${post.id}`}
                         >
                             <article key={post.id} className="bg-white shadow overflow-hidden sm:rounded-lg">
                                 <div className="">
-                                    <div className="w-full">
+                                    <div className="w-full h-48 bg-gray-100">
                                         <img
-                                            src={post.img}
+                                            src={post.thumbnail}
                                             alt=""
+                                            className='object-cover w-full h-full'
                                         />
                                     </div>
                                     <div className="p-4 sm:p-4">
                                         <h2 className="text-2xl font-semibold text-gray-900">
-                                            <Link href={`/blog/${post.id}`} className="hover:underline">
-                                                {post.title}
-                                            </Link>
+                                            {post.title}
                                         </h2>
-                                        <p className="mt-1 text-sm text-gray-600">{post.date}</p>
-                                        <p className="mt-2 text-base text-gray-500 line-clamp-3">{post.excerpt}</p>
-                                        <div className="mt-4">
-                                            <Link href={`/blog/${post.id}`} className="text-primary hover:text-indigo-900">
+                                        <p className="mt-1 text-sm text-gray-600">{post.createdAt}</p>
+                                        <p className="mt-2 text-sm text-gray-500 line-clamp-3">{post.content}</p>
+                                        <div className="mt-4 pr-1 flex justify-end">
+                                            <span className="text-primary hover:text-indigo-900">
                                                 Read more →
-                                            </Link>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -73,4 +78,3 @@ export default function BlogPage() {
 
     )
 }
-

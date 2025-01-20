@@ -56,9 +56,9 @@ const MyCourseDetailsPage = () => {
                 }
                 <div>
                     {
-                        lecture?.files?.map((file: any) => (
+                        lecture?.files?.map((file: any, index: number) => (
                             <a
-                                key={file.id}
+                                key={file.id || index}
                                 href={file.url}
                                 target="_blank"
                                 className="text-blue-500 dark:text-blue-400"

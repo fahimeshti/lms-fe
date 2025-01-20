@@ -115,7 +115,7 @@ export default function Footer() {
                 </div>
                 <div className="mt-8 border-t border-[rgb(84_61_237)] py-4 md:flex md:items-center md:justify-center">
                     <p className="mt-4 text-base text-primary-text md:mt-0 md:order-1">
-                        স্বত্ব &copy; {getLatestYearInBangla()} {SITE_NAME} কর্তৃক সর্বস্বত্ব সংরক্ষিত
+                        স্বত্ব &copy; {getLatestYearInBangla()} <span className='text-secondary'>{SITE_NAME}</span> কর্তৃক সর্বস্বত্ব সংরক্ষিত
                     </p>
                 </div>
             </div>
