@@ -10,7 +10,7 @@ const CourseCard = ({ data, purchased }: { data: CourseT, purchased?: boolean })
                 <img src={data.thumbnail || IMAGE_FALLBACK} alt="" className="object-cover w-full h-full" />
             </div>
 
-            <div className="p-4 min-h-[12rem] max-h-[12rem] flex justify-between flex-col">
+            <div className="p-4 min-h-[14rem] max-h-[14rem] flex justify-between flex-col">
                 <div>
                     <h3 className="text-lg font-semibold line-clamp-2">{data.title}</h3>
                     <p className="text-sm text-gray-500 font-medium truncate">

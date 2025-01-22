@@ -12,13 +12,12 @@ const userProfilePage = () => {
         true,
         true,
     );
-    const courseList = courses?.data?.data?.courses;
+    const courseList = courses?.data?.data;
 
     return (
         <>
             <Navbar />
             <div className="custom-container py-12">
-                {/* h1: My Courses */}
                 <h1 className="text-2xl font-bold text-gray-900">My Courses</h1>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-5 mt-5">
                     {

@@ -10,9 +10,7 @@ import { loginWithEmailPassword } from "@/utils/api/auth";
 import { useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { AUTH_TOKEN_KEY, USER_PROFILE_KEY } from "@/utils/constants";
-import toast from "react-hot-toast";
-import { useSearchParams } from "next/navigation";
-
+import Cookies from 'js-cookie';
 
 const FormSchema = z.object({
     // phone: z
@@ -54,7 +52,13 @@ const LoginSection = () => {
 
     useEffect(() => {
         if (data) {
-            localStorage.setItem(AUTH_TOKEN_KEY, data.data?.data?.session?.access_token);
+            // localStorage.setItem(AUTH_TOKEN_KEY, data.data?.data?.session?.access_token);
+            Cookies.set(AUTH_TOKEN_KEY, data?.data?.data?.session?.access_token, {
+                expires: 1, // Expires in 1 days
+                secure: true, // HTTPS only
+                sameSite: 'Strict', // Strict cookie policy
+            });
+
             localStorage.setItem(USER_PROFILE_KEY, JSON.stringify(data.data?.data?.user));
             login();
         }
@@ -86,7 +90,7 @@ const LoginSection = () => {
                         <FormItem className="col-span-3 sm:col-span-1">
                             <FormLabel>Password</FormLabel>
                             <FormControl>
-                                <Input type="text" placeholder="Password" className="my-2" {...field} />
+                                <Input type="password" placeholder="Password" className="my-2" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>

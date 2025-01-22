@@ -9,6 +9,7 @@ const BeforeAuth = (WrappedComponent: any) => {
 		const { isAuthenticated, token } = useAuth();
 		const params = useSearchParams();
 		const redirectUrl = params.get('redirect') || '/';
+		const action = params.get('action');
 
 
 		const [loading, setLoading] = useState(true);
@@ -27,7 +28,7 @@ const BeforeAuth = (WrappedComponent: any) => {
 		}
 
 		if (isAuthenticated || token) {
-			router.push(redirectUrl);
+			router.replace(`${redirectUrl}${action ? `?action=${action}` : ''}`);
 			return null;
 		}
 

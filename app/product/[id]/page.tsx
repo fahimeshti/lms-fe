@@ -12,12 +12,14 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { useApi } from "@/hooks/useApiCall";
 import { getPublicCourse, purchaseCourse, purchasedCourse } from "@/utils/api/courses";
-import { useParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { Skeleton } from "@/components/ui/skeleton";
 import toast from "react-hot-toast";
 import Spinner from "@/components/atoms/Spinner";
 import Link from "next/link";
 import { getAccessToken } from "@/utils/storage";
+import { BUY_NOW_KEY, PAYMENT_CALLBACK_URL } from "@/utils/constants";
+import { paymentCheckoutApi } from "@/utils/api/payment";
 
 function getScrollDistanceFromTop(): number {
     return window.scrollY || document.documentElement.scrollTop || 0;
@@ -29,6 +31,9 @@ const SingleProduct = () => {
     const [scrollDistance, setScrollDistance] = useState(0);
     const stickyElementRef = useRef<HTMLDivElement>(null);
     const [distanceFromLeft, setDistanceFromLeft] = useState(0);
+    const router = useRouter();
+    const params = useSearchParams();
+    const action = params.get('action');
 
     const { data: courseData, loading } = useApi<any, any>(
         getPublicCourse,
@@ -36,8 +41,8 @@ const SingleProduct = () => {
         true,
         id
     );
-    const { data: coursePurchaseData, execute: buyCourse, loading: buying } = useApi<any, any>(
-        purchaseCourse,
+    const { data: coursePurchaseData, execute: executePaymentCheckout, loading: buying } = useApi<any, any>(
+        paymentCheckoutApi,
         false,
         true
     );
@@ -88,19 +93,42 @@ const SingleProduct = () => {
     }, []);
 
     const handleBuyCourse = () => {
-        buyCourse(id);
+        const token = getAccessToken();
+        if (token) {
+            executePaymentCheckout({
+                callbackURL: PAYMENT_CALLBACK_URL
+            }, id);
+        } else {
+            router.push(`/auth/login?redirect=${window.location.href}&action=${BUY_NOW_KEY}`);
+        }
     }
 
+    // check if user clicked buy now and course is loaded
     useEffect(() => {
+        if (course?.title && action === BUY_NOW_KEY) {
+            setTimeout(() => {
+                executePaymentCheckout({
+                    callbackURL: PAYMENT_CALLBACK_URL
+                }, id);
+            }, 1000);
+        }
+    }, [action, course]);
+
+    // check if user has already purchased the course
+    useEffect(() => {
+        handleCallCheckPurchase();
+    }, [id]);
+
+    function handleCallCheckPurchase() {
         const token = getAccessToken();
         if (token) {
             fetchIsPurchased(id);
         }
-    }, [id]);
+    }
 
     useEffect(() => {
-        if (coursePurchaseData?.data?.success) {
-            toast.success("Course purchased successfully");
+        if (coursePurchaseData?.data?.data?.bkashURL) {
+            window.location.href = coursePurchaseData.data.data.bkashURL;
         }
     }, [coursePurchaseData]);
 

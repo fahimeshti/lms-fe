@@ -9,7 +9,7 @@ export const getCourses = (query?: string, filter: "asc" | "desc" = "desc") => {
 export const getPublicCourse = (id: string) => {
   return axiosInstance.get(`/courses/${id}`);
 };
-export const getPurchasedCourse = (id: string) => {
+export const getPurchasedCourse = () => {
   return axiosInstance.get(`/courses/purchased`);
 };
 

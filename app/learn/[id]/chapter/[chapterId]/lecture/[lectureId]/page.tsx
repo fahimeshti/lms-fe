@@ -1,5 +1,6 @@
 "use client"
 
+import CustomVideoPlayer from "@/components/common/CustomVideoPlayer";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useApi } from "@/hooks/useApiCall";
 import { getLecture } from "@/utils/api/courses";
@@ -26,11 +27,12 @@ const MyCourseDetailsPage = () => {
     return (
         <>
             <div className="mb-6">
-                <video
-                    className="w-full rounded-lg"
-                    src={lecture?.url}
-                    controls
-                />
+                {
+                    loading ?
+                        <Skeleton className="w-full h-80 bg-gray-300" />
+                        :
+                        <CustomVideoPlayer src={lecture?.url} />
+                }
             </div>
             <div>
                 {loading ? (
