@@ -46,7 +46,7 @@ export default async function BlogPage() {
                             key={post.id}
                             href={`/blog/${post.id}`}
                         >
-                            <article key={post.id} className="bg-white shadow overflow-hidden sm:rounded-lg">
+                            <article key={post.id} className="bg-white h-full shadow hover:shadow-md transition-all duration-150 overflow-hidden sm:rounded-lg">
                                 <div className="">
                                     <div className="w-full h-48 bg-gray-100">
                                         <img
@@ -55,13 +55,15 @@ export default async function BlogPage() {
                                             className='object-cover w-full h-full'
                                         />
                                     </div>
-                                    <div className="p-4 sm:p-4">
-                                        <h2 className="text-2xl font-semibold text-gray-900">
-                                            {post.title}
-                                        </h2>
-                                        <p className="mt-1 text-sm text-gray-600">{post.createdAt}</p>
-                                        <p className="mt-2 text-sm text-gray-500 line-clamp-3">{post.content}</p>
-                                        <div className="mt-4 pr-1 flex justify-end">
+                                    <div className="p-4 sm:p-4 h-[230px] flex flex-col justify-between">
+                                        <div>
+                                            <h2 className="text-2xl font-semibold text-gray-900 line-clamp-2">
+                                                {post.title}
+                                            </h2>
+                                            <p className="mt-1 text-sm text-gray-600">{post.createdAt}</p>
+                                            <p className="mt-2 text-sm text-gray-500 line-clamp-3">{post.content}</p>
+                                        </div>
+                                        <div className="pr-1 flex justify-end mt-4">
                                             <span className="text-primary hover:text-indigo-900">
                                                 Read more →
                                             </span>

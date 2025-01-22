@@ -34,15 +34,15 @@ const HomepageHero = () => {
                                 spaceBetween: 5,
                             },
                             768: {
-                                slidesPerView: 3,
+                                slidesPerView: 1,
                                 spaceBetween: 10,
                             },
                             1024: {
-                                slidesPerView: 3,
+                                slidesPerView: 1,
                                 spaceBetween: 20,
                             },
                             1200: {
-                                slidesPerView: 3,
+                                slidesPerView: 1,
                                 spaceBetween: 20,
                             },
                         }}
@@ -61,7 +61,7 @@ const HomepageHero = () => {
                             courseList?.map((image: any, i: number) => (
                                 <SwiperSlide key={i}>
                                     <Link href={`/product/${image.id}`}>
-                                        <img src={image.thumbnail} alt="" className="rounded-lg object-cover w-full h-52" />
+                                        <img src={image.thumbnail} alt="" className="rounded-lg object-contain w-full h-52" />
                                     </Link>
                                 </SwiperSlide>
                             ))

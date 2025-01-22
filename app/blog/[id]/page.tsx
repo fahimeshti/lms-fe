@@ -70,7 +70,7 @@ const BlogDetailsPage = async ({ params }: { params: { id: string } }) => {
                             className="object-cover w-full"
                         />
                     </div>
-                    <div className="">
+                    <div className="pt-8">
                         <div className="prose max-w-none">
                             {post?.content?.split('\n').map((paragraph, index) => (
                                 <p key={index} className="mb-4">{paragraph}</p>

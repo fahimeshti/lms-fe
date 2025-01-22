@@ -173,7 +173,15 @@ const SingleProduct = () => {
                                 >
                                     <div className="md:sticky md:top-16">
 
-                                        <div className="md:border p-4">
+                                        <div className="p-1.5 pb-0 max-h-[325px] overflow-hidden">
+                                            <img
+                                                src={course?.thumbnail}
+                                                alt={course?.title}
+                                                className="w-full h-full object-cover"
+                                            />
+                                        </div>
+
+                                        <div className="md:border md:border-t-0 p-4">
                                             <div className="flex items-center gap-2">
                                                 {course?.price ? <span className="text-2xl font-semibold">
                                                     ৳{course?.price}
@@ -226,7 +234,7 @@ const SingleProduct = () => {
                                                         <ul className="space-y-2 mt-3">
                                                             <li className="font-medium flex items-center gap-2">
                                                                 <SendHorizontal className="size-4 text-primary" />
-                                                                সর্বমোট ৮টি বিষয় পড়ানো হবে
+                                                                অধ্যায়ভিত্তিক লেকচার শিট
                                                             </li>
                                                             <li className="font-medium flex items-center gap-2">
                                                                 <SendHorizontal className="size-4 text-primary" />
@@ -235,6 +243,10 @@ const SingleProduct = () => {
                                                             <li className="font-medium flex items-center gap-2">
                                                                 <SendHorizontal className="size-4 text-primary" />
                                                                 ক্লাসগুলো স্পেশাল ফেসবুক গ্রুপে নেয়া হবে।
+                                                            </li>
+                                                            <li className="font-medium flex items-center gap-2">
+                                                                <SendHorizontal className="size-4 text-primary" />
+                                                                সার্বক্ষণিক মেন্টর সাপোর্ট
                                                             </li>
                                                         </ul>
                                                 }
@@ -363,10 +375,10 @@ const SingleProduct = () => {
                                 <Skeleton className="w-full h-32 mt-4" />
                                 :
                                 <div className="border rounded-md p-5 mt-4">
-                                    <div className="flex flex-col gap-2">
+                                    <div className="grid grid-cols-12 gap-4">
                                         {
                                             course?.instructors?.map((instructor: any, index: number) => (
-                                                <div key={index} className="flex items-center gap-4">
+                                                <div key={index} className="flex items-center gap-4 col-span-12 lg:col-span-6">
                                                     <div className="w-20 h-20 min-w-20 max-h-20 rounded-full bg-gray-200">
                                                         <img
                                                             src={instructor.image}
