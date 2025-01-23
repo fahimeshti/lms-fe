@@ -11,6 +11,9 @@ import { useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { AUTH_TOKEN_KEY, USER_PROFILE_KEY } from "@/utils/constants";
 import Cookies from 'js-cookie';
+import isEmpty from "@/utils/isEmpty";
+import toast from "react-hot-toast";
+import { PasswordInput } from "@/components/ui/password-input";
 
 const FormSchema = z.object({
     // phone: z
@@ -51,8 +54,10 @@ const LoginSection = () => {
     };
 
     useEffect(() => {
-        if (data) {
-            // localStorage.setItem(AUTH_TOKEN_KEY, data.data?.data?.session?.access_token);
+        if (!isEmpty(data?.data?.error)) {
+            toast.error(data?.data?.message);
+        }
+        if (data?.data?.data?.session?.access_token) {
             Cookies.set(AUTH_TOKEN_KEY, data?.data?.data?.session?.access_token, {
                 expires: 1, // Expires in 1 days
                 secure: true, // HTTPS only
@@ -90,7 +95,12 @@ const LoginSection = () => {
                         <FormItem className="col-span-3 sm:col-span-1">
                             <FormLabel>Password</FormLabel>
                             <FormControl>
-                                <Input type="password" placeholder="Password" className="my-2" {...field} />
+                                <PasswordInput
+                                    {...field}
+                                    id="password"
+                                    placeholder="Password"
+                                    className="my-2"
+                                />
                             </FormControl>
                             <FormMessage />
                         </FormItem>

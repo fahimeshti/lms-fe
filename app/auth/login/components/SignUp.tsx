@@ -1,9 +1,15 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/FormField";
 import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/password-input";
+import { useApi } from "@/hooks/useApiCall";
+import { signUpWithEmailPassword } from "@/utils/api/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { z } from "zod";
 
 const FormSchema = z.object({
@@ -26,17 +32,36 @@ const SignUpSection = () => {
             email: '',
             password: '',
             fullName: '',
+            confirmPassword: '',
         },
     });
+
+    const { loading, data, execute: signUp } = useApi<any, any>(
+        signUpWithEmailPassword,
+        false,
+        true,
+    );
+
     const { formState } = form;
     const { isValid, isSubmitting } = formState;
 
     const onSubmit = async (data: z.infer<typeof FormSchema>) => {
-        console.log("Submitting data...", data);
-        await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulating async submission
-        console.log("Submitted!");
-        router.push('/auth/login?type=login');
+        const d = {
+            email: data.email,
+            password: data.password,
+            full_name: data.fullName,
+        };
+        await signUp(d);
     };
+
+    useEffect(() => {
+        if (data?.data) {
+            toast.success("Sign up successful, please check your email");
+            router.push('/auth/login?type=login');
+        } else if (data?.data?.error) {
+            toast.error(data?.data?.message || "Something went wrong, please try again");
+        }
+    }, [data]);
 
     return (
         <div>
@@ -66,7 +91,7 @@ const SignUpSection = () => {
                             <FormItem className="col-span-3 sm:col-span-1">
                                 <FormLabel>Email</FormLabel>
                                 <FormControl>
-                                    <Input type="text" placeholder="Email" className="my-2" {...field} />
+                                    <Input type="email" placeholder="Email" className="my-2" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -79,7 +104,11 @@ const SignUpSection = () => {
                             <FormItem className="col-span-3 sm:col-span-1">
                                 <FormLabel>Password</FormLabel>
                                 <FormControl>
-                                    <Input type="text" placeholder="Password" className="my-2" {...field} />
+                                    <PasswordInput
+                                        {...field}
+                                        id="password"
+                                        placeholder="Password"
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -92,14 +121,18 @@ const SignUpSection = () => {
                             <FormItem className="col-span-3 sm:col-span-1">
                                 <FormLabel>Confirm  Password</FormLabel>
                                 <FormControl>
-                                    <Input type="text" placeholder="Confirm  Password" className="my-2" {...field} />
+                                    <PasswordInput
+                                        {...field}
+                                        id="confirmPassword"
+                                        placeholder="Confirm  Password"
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
                         )}
                     />
 
-                    <Button className="w-full" disabled={!isValid || isSubmitting}>Sign Up</Button>
+                    <Button className="w-full" disabled={!isValid || isSubmitting || loading}>Sign Up</Button>
                 </form>
             </FormProvider>
         </div>
