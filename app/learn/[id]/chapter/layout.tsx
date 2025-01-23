@@ -35,7 +35,7 @@ const MyCourseDetailsPageLayout = ({
         <>
             <Navbar />
             <div className="custom-container">
-                <div className="grid min-h-screen grid-cols-[1fr_400px] bg-gray-100 dark:bg-gray-950">
+                <div className="grid min-h-screen grid-cols-1 lg:grid-cols-[1fr_400px] bg-gray-100 dark:bg-gray-950">
 
                     <div className="p-6">
                         {children}
@@ -77,7 +77,7 @@ const MyCourseDetailsPageLayout = ({
                             </div>
                         )
                             :
-                            <nav className="sticky top-20 bg-white max-h-96 overflow-y-auto">
+                            <nav className="lg:sticky lg:top-20 bg-white lg:max-h-96 overflow-y-auto">
                                 <Accordion type="multiple" className="space-y-2" defaultValue={[chapterId]}>
                                     {sortBySerial(chapters)?.map((chapter: any) => (
                                         <AccordionItem key={chapter.id} value={chapter.id} className="text-sm rounded-md border-b-0">

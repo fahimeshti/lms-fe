@@ -193,10 +193,20 @@ export default function Navbar() {
                     </div>
 
                     {/* Mobile menu button */}
-                    <div className="xmd:hidden flex items-center">
+                    <div className="xmd:hidden flex items-center gap-1">
+                        {isAuthenticated ?
+                            <NavMenu />
+                            :
+                            <Link href="/auth/login">
+                                <Button variant="secondary" className={`font-semibold ${isSearchBoxOpen ? 'z-[-10]' : ''}`}>
+                                    লগ-ইন
+                                </Button>
+                            </Link>
+                        }
+
                         <button
                             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                            className="relative inline-flex items-center justify-center p-4 rounded-md text-gray-700 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-ring"
+                            className="relative inline-flex items-center justify-center p-5 rounded-md text-gray-200 hover:text-gray-300 hover:bg-black hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-ring"
                         >
                             <span className="sr-only">{isMobileMenuOpen ? "Close menu" : "Open menu"}</span>
                             <div className="block w-4 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
@@ -236,7 +246,7 @@ export default function Navbar() {
                                     )}
                                 </div>
                             ))}
-                            <Button className="w-fit ml-2 !mt-4">Login</Button>
+                            {/* <Button className="w-fit ml-2 !mt-4">Login</Button> */}
                         </div>
                     </div>
                 )

@@ -8,7 +8,6 @@ export default function Footer() {
         <footer className="bg-[#322485]">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pb-0">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                    {/* First Column: Logo, Details */}
                     <div className="space-y-4">
                         <Link href="/" className="text-2xl font-bold text-primary-text">
                             {SITE_NAME}
@@ -23,22 +22,22 @@ export default function Footer() {
                         <h3 className="text-sm font-semibold text-primary-text uppercase tracking-wider">গুরুত্বপূর্ণ লিঙ্কসঃ</h3>
                         <ul className="mt-4 space-y-1">
                             <li>
-                                <Link href="/terms" className="text-base text-primary-text hover:text-secondary transition-colors duration-200">
+                                <Link href="/#" className="text-base text-primary-text hover:text-secondary transition-colors duration-200">
                                     ব্যবহারকারীর শর্তাবলি
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/privacy" className="text-base text-primary-text hover:text-secondary transition-colors duration-200">
+                                <Link href="/#" className="text-base text-primary-text hover:text-secondary transition-colors duration-200">
                                     প্রাইভেসি পলিসি
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/refund-policy" className="text-base text-primary-text hover:text-secondary transition-colors duration-200">
+                                <Link href="/#" className="text-base text-primary-text hover:text-secondary transition-colors duration-200">
                                     রিফান্ড পলিসি
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/contact" className="text-base text-primary-text hover:text-secondary transition-colors duration-200">
+                                <Link href="/#" className="text-base text-primary-text hover:text-secondary transition-colors duration-200">
                                     যোগাযোগ
                                 </Link>
                             </li>
@@ -55,17 +54,17 @@ export default function Footer() {
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/careers" className="text-base text-primary-text hover:text-secondary transition-colors duration-200">
+                                <Link href="/#" className="text-base text-primary-text hover:text-secondary transition-colors duration-200">
                                     ক্যারিয়ার
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/partners" className="text-base text-primary-text hover:text-secondary transition-colors duration-200">
+                                <Link href="/#" className="text-base text-primary-text hover:text-secondary transition-colors duration-200">
                                     Partners
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/resources" className="text-base text-primary-text hover:text-secondary transition-colors duration-200">
+                                <Link href="/#" className="text-base text-primary-text hover:text-secondary transition-colors duration-200">
                                     ফ্রি ডাউনলোড
                                 </Link>
                             </li>

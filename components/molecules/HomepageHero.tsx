@@ -38,11 +38,11 @@ const HomepageHero = () => {
                                 spaceBetween: 10,
                             },
                             1024: {
-                                slidesPerView: 1,
+                                slidesPerView: 3,
                                 spaceBetween: 20,
                             },
                             1200: {
-                                slidesPerView: 1,
+                                slidesPerView: 3,
                                 spaceBetween: 20,
                             },
                         }}
@@ -66,7 +66,6 @@ const HomepageHero = () => {
                                 </SwiperSlide>
                             ))
                         }
-
                     </CoursesSliderContainer>
 
                 </div>

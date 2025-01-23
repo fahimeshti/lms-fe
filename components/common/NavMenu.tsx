@@ -30,7 +30,7 @@ export function NavMenu() {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <div className="flex items-center gap-2 cursor-pointer hover:bg-black/5 py-1.5 rounded-md px-2.5">
+                <div className="flex items-center gap-2 cursor-pointer hover:bg-black/5 py-1 xmd:py-1.5 rounded-md px-1.5 xmd:px-2.5">
                     <Button variant="ghost" className="relative h-8 w-8 rounded-full text-black">
                         <Avatar className="h-7 w-7">
                             <AvatarImage src="/avatars/01.png" alt={userProfile?.full_name} />
@@ -39,8 +39,8 @@ export function NavMenu() {
                             </AvatarFallback>
                         </Avatar>
                     </Button>
-                    <p className="text-sm font-medium leading-none max-w-20 truncate">{userProfile?.full_name}</p>
-                    <ChevronDown size={20} className="ml-2" />
+                    <p className="text-sm font-medium leading-none max-w-20 truncate hidden xmd:block">{userProfile?.full_name}</p>
+                    <ChevronDown size={20} className="ml-2 hidden xmd:block" />
                 </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56 z-[999]" align="end">
@@ -54,8 +54,8 @@ export function NavMenu() {
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
-                    <DropdownMenuItem>
-                        <Link href="/profile">
+                    <DropdownMenuItem className="py-0 px-0">
+                        <Link href="/profile" className="w-full py-1.5 px-2">
                             My Purchases
                         </Link>
                     </DropdownMenuItem>

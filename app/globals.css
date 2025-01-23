@@ -68,6 +68,7 @@
 
   body {
     @apply bg-background text-foreground;
+    /* background: #4e38dcdc; */
   }
 }
 
@@ -128,6 +129,11 @@
 @media (max-width: 768px) {
   .mySwiper-hero .swiper-slide.swiper-slide-active {
     transform: scale(1) !important;
+  }
+}
+@media (max-width: 600px) {
+  .home-hero {
+    min-height: 30vh;
   }
 }
 

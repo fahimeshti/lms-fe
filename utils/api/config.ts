@@ -5,7 +5,7 @@ import { logoutUser } from "../logoutUser";
 
 const axiosInstance = axios.create({
   baseURL: `${API_ROOT}/api/v1`,
-  timeout: 10000,
+  timeout: 6 * 10000, // 60 seconds
 });
 
 axiosInstance.interceptors.request.use(

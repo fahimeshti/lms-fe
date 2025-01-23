@@ -81,7 +81,7 @@ const SearchPage = () => {
                 <ul className="mt-4 space-y-5">
                     {loading ?
                         Array.from({ length: 3 }).map((_, i) => (
-                            <Skeleton className="h-32 w-full" />
+                            <Skeleton key={i} className="h-32 w-full" />
                         )) :
                         courseList?.map((course: CourseT, i: number) => (
                             <li className="">

@@ -6,7 +6,7 @@ const WhatsappContact = () => {
             href={'/'}
             target="_blank"
             rel="noopener noreferrer"
-            className="fixed bottom-12 right-14 w-12 h-12 rounded-full bg-gradient-to-l from-primary to-primary bg-primary text-white flex items-center justify-center z-[9999]">
+            className="fixed bottom-6 lg:bottom-12 right-6 lg:right-14 w-12 h-12 rounded-full bg-gradient-to-l from-primary to-primary bg-primary text-white flex items-center justify-center z-[9999]">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"

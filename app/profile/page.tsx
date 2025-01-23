@@ -2,9 +2,12 @@
 import CourseCard from "@/components/common/CourseCard";
 import Footer from "@/components/common/Footer";
 import Navbar from "@/components/common/Navbar";
+import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useApi } from "@/hooks/useApiCall";
 import { getPurchasedCourse } from "@/utils/api/courses";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 const userProfilePage = () => {
     const { data: courses, loading } = useApi<any, any>(
@@ -30,9 +33,22 @@ const userProfilePage = () => {
                                 }
                             </>
                             :
-                            courseList?.map((course: any) => (
-                                <CourseCard key={course.id} data={course} purchased />
-                            ))
+                            <>
+                                {courseList?.length > 0 ?
+                                    courseList?.map((course: any) => (
+                                        <CourseCard key={course.id} data={course} purchased />
+                                    )) :
+                                    <div className="py-8 col-span-12 text-center flex flex-col items-center gap-4">
+                                        <p className="text-gray-500 font-medium">No courses found</p>
+                                        <Link href="/courses" className="flex items-center gap-2 text-sm font-medium text-primary">
+                                            <Button>
+                                                Explore Courses
+                                                <ArrowRight size={20} />
+                                            </Button>
+                                        </Link>
+                                    </div>
+                                }
+                            </>
                     }
                 </div>
             </div>

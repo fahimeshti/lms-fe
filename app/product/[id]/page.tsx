@@ -56,7 +56,19 @@ const SingleProduct = () => {
 
     const chapters = course?.privateCourses?.chapters;
 
-    const innerWidth = window.innerWidth || 0;
+    const [innerWidth, setInnerWidth] = useState(typeof window !== "undefined" ? window.innerWidth : 0);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setInnerWidth(window.innerWidth);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     const getDistanceFromLeft = (element: HTMLElement): number => {
         const padding = window.innerWidth > 1024 ? 48 : 24;
@@ -172,8 +184,7 @@ const SingleProduct = () => {
                                     }}
                                 >
                                     <div className="md:sticky md:top-16">
-
-                                        <div className="p-1.5 pb-0 max-h-[325px] overflow-hidden">
+                                        <div className="p-1.5 pb-0 max-h-[325px] overflow-hidden border border-b-0">
                                             <img
                                                 src={course?.thumbnail}
                                                 alt={course?.title}
