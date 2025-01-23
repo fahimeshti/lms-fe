@@ -5,6 +5,7 @@ import WhatsappContact from "@/components/common/WhatsappContact";
 import { SITE_NAME } from "@/utils/constants";
 import { AuthProvider } from "@/context/AuthContext";
 import { Toaster } from "react-hot-toast";
+import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,7 +34,9 @@ export default function RootLayout({
       >
         <WhatsappContact />
         <AuthProvider>
-          {children}
+          <Suspense>
+            {children}
+          </Suspense>
         </AuthProvider>
         <Toaster />
       </body>

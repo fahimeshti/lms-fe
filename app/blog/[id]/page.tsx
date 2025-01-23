@@ -12,7 +12,7 @@ function formatDateToLong(date: Date): string {
     return date.toLocaleDateString('en-US', options);
 }
 
-export async function getBlogDetails(id: string) {
+async function getBlogDetails(id: string) {
     const API_BASE_URL = `${API_ROOT}/api/v1/blog/${id}`;
 
     try {
@@ -36,11 +36,10 @@ export async function getBlogDetails(id: string) {
         throw error;
     }
 }
-// BlogPost
-const BlogDetailsPage = async ({ params }: { params: { id: string } }) => {
+
+const BlogDetailsPage = async ({ params }: any) => {
     const postData = await getBlogDetails(params.id);
     const post: BlogPost = postData?.data;
-
 
     return (
         <>

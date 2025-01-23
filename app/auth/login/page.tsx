@@ -8,6 +8,7 @@ import SignUpSection from "./components/SignUp";
 import LoginSection from "./components/LoginSection";
 import { useRouter, useSearchParams } from "next/navigation";
 import BeforeAuth from "@/layouts/BeforeAuth";
+import { Suspense } from "react";
 
 const LoginPage = () => {
     const searchParams = useSearchParams();
@@ -15,7 +16,7 @@ const LoginPage = () => {
     const router = useRouter();
 
     return (
-        <div>
+        <Suspense>
             <Navbar />
             <div className="custom-container">
                 <div className="grid grid-cols-1 md:grid-cols-2 py-4 lg:py-8">
@@ -51,7 +52,7 @@ const LoginPage = () => {
 
             </div>
             <Footer />
-        </div>
+        </Suspense>
     );
 }
 

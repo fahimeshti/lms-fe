@@ -9,7 +9,7 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion";
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { useApi } from "@/hooks/useApiCall";
 import { getPublicCourse, purchaseCourse, purchasedCourse } from "@/utils/api/courses";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
@@ -145,7 +145,7 @@ const SingleProduct = () => {
     }, [coursePurchaseData]);
 
     return (
-        <>
+        <Suspense>
             <Navbar />
             <div>
                 <div className="min-h-[300px] w-full" style={{
@@ -460,7 +460,7 @@ const SingleProduct = () => {
             </div>
 
             <Footer />
-        </>
+        </Suspense>
     );
 }
 

@@ -5,6 +5,7 @@ import Navbar from "@/components/common/Navbar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useApi } from "@/hooks/useApiCall";
 import { getCourses } from "@/utils/api/courses";
+import { Suspense } from "react";
 
 const AllCoursesPage = () => {
     const { data: courses, loading } = useApi<any, any>(
@@ -15,7 +16,7 @@ const AllCoursesPage = () => {
     const courseList = courses?.data?.data.slice(0, 6);
 
     return (
-        <div>
+        <Suspense>
             <Navbar />
             <div className="custom-container py-6 lg:py-12">
                 <h1 className="text-4xl font-bold text-gray-700 mb-5 text-left">
@@ -39,7 +40,7 @@ const AllCoursesPage = () => {
                 </div>
             </div>
             <Footer />
-        </div>
+        </Suspense>
     );
 }
 

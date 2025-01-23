@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Spinner from "@/components/atoms/Spinner";
 import { API_ROOT, AUTH_TOKEN_KEY } from "@/utils/constants";
@@ -66,20 +66,22 @@ const PaymentCallback = () => {
     }, [data, router]);
 
     return (
-        <div className="h-screen w-full flex items-center justify-center">
-            {data ? (
-                <div className="text-center space-y-4">
-                    <h1 className="text-2xl lg:text-3xl font-bold text-primary">
-                        {data?.statusMessage}
-                    </h1>
-                    <p className="text-lg text-gray-600">
-                        Redirecting to your courses in <span className="font-semibold">{countdown}</span> seconds...
-                    </p>
-                </div>
-            ) : (
-                <Spinner className="w-8 h-8" />
-            )}
-        </div>
+        <Suspense>
+            <div className="h-screen w-full flex items-center justify-center">
+                {data ? (
+                    <div className="text-center space-y-4">
+                        <h1 className="text-2xl lg:text-3xl font-bold text-primary">
+                            {data?.statusMessage}
+                        </h1>
+                        <p className="text-lg text-gray-600">
+                            Redirecting to your courses in <span className="font-semibold">{countdown}</span> seconds...
+                        </p>
+                    </div>
+                ) : (
+                    <Spinner className="w-8 h-8" />
+                )}
+            </div>
+        </Suspense>
     );
 };
 

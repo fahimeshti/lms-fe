@@ -4,7 +4,7 @@ import Footer from '@/components/common/Footer'
 import { API_ROOT } from '@/utils/constants'
 import { BlogPost } from '@/types';
 
-export async function getAllBlogs() {
+async function getAllBlogs() {
     const API_BASE_URL = `${API_ROOT}/api/v1/blog`;
 
     try {

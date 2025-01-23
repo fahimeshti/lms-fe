@@ -1,10 +1,12 @@
-import { JSX, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import Spinner from '@/components/atoms/Spinner';
 
-function BeforeAuth<T extends JSX.IntrinsicAttributes>(WrappedComponent: React.ComponentType<T>) {
-	function WithoutAuth(props: T) {
+function BeforeAuth<P extends object = {}>(
+	WrappedComponent: React.ComponentType<P>
+) {
+	return function WithoutAuth(props: any) {
 		const { isAuthenticated, token } = useAuth();
 		const params = useSearchParams();
 		const router = useRouter();
@@ -12,7 +14,6 @@ function BeforeAuth<T extends JSX.IntrinsicAttributes>(WrappedComponent: React.C
 		const redirectUrl = params.get('redirect') || '/';
 		const action = params.get('action');
 
-		// Handle redirection if the user is authenticated
 		useEffect(() => {
 			if (isAuthenticated || token) {
 				const actionQuery = action ? `?action=${action}` : '';
@@ -20,7 +21,6 @@ function BeforeAuth<T extends JSX.IntrinsicAttributes>(WrappedComponent: React.C
 			}
 		}, [isAuthenticated, token, action, redirectUrl, router]);
 
-		// Show spinner while redirecting
 		if (isAuthenticated || token) {
 			return (
 				<div className="h-screen w-full flex items-center justify-center">
@@ -29,11 +29,8 @@ function BeforeAuth<T extends JSX.IntrinsicAttributes>(WrappedComponent: React.C
 			);
 		}
 
-		// Render the wrapped component for unauthenticated users
 		return <WrappedComponent {...props} />;
-	}
-
-	return WithoutAuth;
+	};
 }
 
 export default BeforeAuth;

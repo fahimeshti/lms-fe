@@ -8,8 +8,9 @@ import { useApi } from "@/hooks/useApiCall";
 import { getPurchasedCourse } from "@/utils/api/courses";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { Suspense } from "react";
 
-const userProfilePage = () => {
+const UserProfilePage = () => {
     const { data: courses, loading } = useApi<any, any>(
         getPurchasedCourse,
         true,
@@ -18,7 +19,7 @@ const userProfilePage = () => {
     const courseList = courses?.data?.data;
 
     return (
-        <>
+        <Suspense>
             <Navbar />
             <div className="custom-container py-12">
                 <h1 className="text-2xl font-bold text-gray-900">My Courses</h1>
@@ -53,8 +54,8 @@ const userProfilePage = () => {
                 </div>
             </div>
             <Footer />
-        </>
+        </Suspense>
     );
 }
 
-export default userProfilePage;
+export default UserProfilePage;
