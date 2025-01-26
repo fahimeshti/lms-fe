@@ -13,6 +13,7 @@ import { Suspense } from "react";
 const LoginPage = () => {
     const searchParams = useSearchParams();
     const type = searchParams.get('type');
+    const redirect = searchParams.get('redirect');
     const router = useRouter();
 
     return (
@@ -20,15 +21,15 @@ const LoginPage = () => {
             <Navbar />
             <div className="custom-container">
                 <div className="grid grid-cols-1 md:grid-cols-2 py-4 lg:py-8">
-                    <div className="flex items-center justify-center">
-                        <img src="https://cdn.10minuteschool.com/images/routine_1722246136916.svg" alt="" />
+                    <div className="md:flex items-center justify-center hidden">
+                        <img src="/auth-cover.jpg" alt="" className="w-auto h-80" />
                     </div>
 
 
                     <div className="py-12 flex items-center justify-center text-base">
                         <Tabs value={type || "login"} className="w-[400px]"
                             onValueChange={(value) => {
-                                router.push(`/auth/login?type=${value}`);
+                                router.push(`/auth/login?type=${value}${redirect?.length ? `&redirect=${redirect}` : ''}`);
                             }}
                         >
                             <TabsList className="w-full">

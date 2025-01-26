@@ -413,18 +413,18 @@ const SingleProduct = () => {
 
 
 
-                        {/* <h4 className="text-2xl font-semibold mt-10">সচরাচর জিজ্ঞাসা</h4>
+                        <h4 className="text-2xl font-semibold mt-10">সচরাচর জিজ্ঞাসা</h4>
                         <div className="mt-4">
-                            <Accordion type="single" collapsible className="w-full border rounded-lg px-4 py-2">
-                                <AccordionItem value="item-1" className=" border-dashed">
+                            <Accordion type="single" defaultValue="item-1" collapsible className="w-full border rounded-lg px-4 py-2">
+                                <AccordionItem value="item-1" className="border-b-0 border-dashed">
                                     <AccordionTrigger className="data-[state=open]:mb-4 data-[state=open]:border-b ">
-                                        Lorem, ipsum dolor.
+                                        কোর্সটি কীভাবে কিনবো?
                                     </AccordionTrigger>
                                     <AccordionContent>
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, reprehenderit ullam. Quidem iste labore repudiandae? Iure id veniam fugit sunt, quibusdam, expedita explicabo maiores aliquam obcaecati debitis hic, ex libero.
+                                        কীভাবে পেমেন্ট করবেন তা বিস্তারিত জানতে <a href="http://youtube.com" target="_blank" rel="noopener noreferrer" className="text-primary underline">এই ভিডিওটি</a> দেখুন
                                     </AccordionContent>
                                 </AccordionItem>
-                                <AccordionItem value="item-2" className=" border-dashed">
+                                {/* <AccordionItem value="item-2" className=" border-dashed">
                                     <AccordionTrigger className="data-[state=open]:mb-4 data-[state=open]:border-b">
                                         Dolor sit amet consectetur, adipisicing elit.
                                     </AccordionTrigger>
@@ -439,20 +439,20 @@ const SingleProduct = () => {
                                     <AccordionContent>
                                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium amet maiores accusamus ad consequatur nobis laboriosam, dolorem consectetur, autem aut quibusdam ex perspiciatis corporis maxime minima iure cumque odit? Quo?
                                     </AccordionContent>
-                                </AccordionItem>
+                                </AccordionItem> */}
                             </Accordion>
-                        </div> */}
+                        </div>
 
                         <h4 className="text-2xl font-semibold mt-10">আরও কোন জিজ্ঞাসা আছে?</h4>
                         <div className="mt-4">
-                            <div className="border w-fit rounded-lg p-6 px-12 text-primary font-semibold flex items-center gap-2">
+                            <a href="tel:+999" className="border w-fit rounded-lg p-6 px-12 text-primary font-semibold flex items-center gap-2">
                                 <PhoneCall strokeWidth={1.5} />
                                 <span>
                                     কল করুন {" "}
-                                    <a href="tel:+12345" className="hover:text-secondary transition-colors duration-200">12345</a>{" "}
+                                    <span className="">999</span>{" "}
                                     নম্বরে
                                 </span>
-                            </div>
+                            </a>
                         </div>
                     </div>
 

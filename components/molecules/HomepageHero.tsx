@@ -6,6 +6,7 @@ import { SwiperSlide } from "swiper/react";
 import { useApi } from "@/hooks/useApiCall";
 import { getCourses } from "@/utils/api/courses";
 import Link from "next/link";
+import { Skeleton } from "../ui/skeleton";
 
 const HomepageHero = () => {
     const { data: courses, loading } = useApi<any, any>(
@@ -17,8 +18,14 @@ const HomepageHero = () => {
 
     return (
         <div className="home-hero flex items-center justify-center">
-            {!loading && courseList?.length > 0 &&
-                <div className="custom-container">
+            <div className="custom-container w-full">
+                {loading ?
+                    <div className="flex gap-12 w-full p-2 md:p-0">
+                        <Skeleton className="w-full h-32 sm:h-64 opacity-60" />
+                        <Skeleton className="w-full h-64 opacity-60 scale-110 hidden md:block" />
+                        <Skeleton className="w-full h-64 opacity-60 hidden md:block" />
+                    </div>
+                    : courseList?.length > 0 &&
                     <CoursesSliderContainer
                         slidesPerView={'auto'}
                         centeredSlides={true}
@@ -67,9 +74,8 @@ const HomepageHero = () => {
                             ))
                         }
                     </CoursesSliderContainer>
-
-                </div>
-            }
+                }
+            </div>
         </div>
     );
 }

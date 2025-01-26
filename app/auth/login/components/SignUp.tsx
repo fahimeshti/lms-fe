@@ -6,7 +6,7 @@ import { PasswordInput } from "@/components/ui/password-input";
 import { useApi } from "@/hooks/useApiCall";
 import { signUpWithEmailPassword } from "@/utils/api/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -25,6 +25,8 @@ const FormSchema = z.object({
 
 const SignUpSection = () => {
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const redirect = searchParams.get('redirect');
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
         mode: "onChange",
@@ -57,7 +59,7 @@ const SignUpSection = () => {
     useEffect(() => {
         if (data?.data) {
             toast.success("Sign up successful, please check your email");
-            router.push('/auth/login?type=login');
+            router.push(`/auth/login?type=login${redirect?.length ? `&redirect=${redirect}` : ''}`);
         } else if (data?.data?.error) {
             toast.error(data?.data?.message || "Something went wrong, please try again");
         }

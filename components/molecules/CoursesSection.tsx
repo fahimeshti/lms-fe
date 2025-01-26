@@ -84,7 +84,7 @@ const CoursesSection = () => {
             {/* all courses button */}
             <div className="flex justify-center">
                 <Link href="/courses" className="bg-primary hover:bg-primary group flex items-center gap-2 text-white px-6 py-2.5 rounded-lg hover:bg-primary-dark transition-colors duration-300">
-                    View All Courses
+                    সকল কোর্স
                     <ArrowRight size={18} className="group-hover:translate-x-1 transition-all duration-200" />
                 </Link>
             </div>

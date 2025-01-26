@@ -132,7 +132,7 @@
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 640px) {
   .home-hero {
     min-height: 30vh;
   }
