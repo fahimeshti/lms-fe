@@ -15,11 +15,31 @@ const CustomVideoPlayer = ({
         event.preventDefault();
     };
 
+    // const handleVideoEnded = () => {
+    //     console.log('Video ended!');
+    // };
+
     return (
         <div>
-            <MediaPlayer onContextMenu={handleContextMenu} title="Sprite Fight" src={src}>
+            <MediaPlayer
+                onContextMenu={handleContextMenu}
+                src={src}
+            // onEnded={handleVideoEnded}
+            >
                 <MediaProvider />
-                <PlyrLayout thumbnails={thumbnails} icons={plyrLayoutIcons} />
+                <PlyrLayout controls={[
+                    'play-large',
+                    'play',
+                    'progress',
+                    'current-time',
+                    // 'mute',
+                    'volume',
+                    // 'captions',
+                    'settings',
+                    // 'pip',
+                    // 'airplay',
+                    'fullscreen',
+                ]} thumbnails={thumbnails} icons={plyrLayoutIcons} />
             </MediaPlayer>
         </div>
     );
