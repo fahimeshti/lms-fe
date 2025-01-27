@@ -38,7 +38,7 @@ export default async function BlogPage() {
             <Navbar />
             <div className="custom-container py-6 lg:py-12">
                 <h1 className="text-4xl font-bold text-gray-700 mb-5 text-left">
-                    Latest Blog
+                    সর্বশেষ ব্লগ
                 </h1>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-5">
                     {blogs?.data?.map((post: BlogPost) => (

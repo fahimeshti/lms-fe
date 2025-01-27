@@ -14,7 +14,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { ChevronDown, User } from 'lucide-react'
+import { ChevronDown, LucideBookCheck, LucideLogOut, User } from 'lucide-react'
 import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -55,8 +55,8 @@ export function NavMenu() {
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
                     <DropdownMenuItem className="py-0 px-0">
-                        <Link href="/profile" className="w-full py-1.5 px-2">
-                            My Purchases
+                        <Link href="/profile" className="w-full py-1.5 px-2 flex items-center gap-3">
+                          <LucideBookCheck />  আমার কোর্সমূহ
                         </Link>
                     </DropdownMenuItem>
                     {/* <DropdownMenuItem>
@@ -90,8 +90,8 @@ export function NavMenu() {
                 {/* <DropdownMenuSeparator />
                 <DropdownMenuItem>Support</DropdownMenuItem> */}
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={handleLogout}>
-                    Log out
+                <DropdownMenuItem onClick={handleLogout} className="hover:!text-red-500 gap-3 pl-2.5">
+                   <LucideLogOut /> লগআউট
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>

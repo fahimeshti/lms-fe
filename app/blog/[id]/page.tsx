@@ -38,7 +38,8 @@ async function getBlogDetails(id: string) {
 }
 
 const BlogDetailsPage = async ({ params }: any) => {
-    const postData = await getBlogDetails(params.id);
+    const param = await params;
+    const postData = await getBlogDetails(param.id);
     const post: BlogPost = postData?.data;
 
     return (
