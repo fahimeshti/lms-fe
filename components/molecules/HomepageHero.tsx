@@ -17,7 +17,7 @@ const HomepageHero = () => {
     const courseList = courses?.data?.data?.filter((item: any) => item.featured)?.slice(0, 6);
 
     return (
-        <div className="home-hero flex items-center justify-center">
+        <div className="bg-[#12121A] bg-gradient-to-br from-[#12121A] to-gray-900 h-[40vh] sm:h-[70vh] flex items-center justify-center">
             <div className="custom-container w-full">
                 {loading ?
                     <div className="flex gap-12 w-full p-2 md:p-0">
@@ -41,7 +41,7 @@ const HomepageHero = () => {
                                 spaceBetween: 5,
                             },
                             768: {
-                                slidesPerView: 1,
+                                slidesPerView: 2,
                                 spaceBetween: 10,
                             },
                             1024: {
@@ -67,8 +67,8 @@ const HomepageHero = () => {
                         {
                             courseList?.map((image: any, i: number) => (
                                 <SwiperSlide key={i}>
-                                    <Link href={`/product/${image.id}`}>
-                                        <img src={image.thumbnail} alt="" className="rounded-lg object-contain w-full h-52" />
+                                    <Link href={`/product/${image.id}`} className="h-52 block lg:border lg:border-gray-50/20 rounded-xl overflow-hidden">
+                                        <img src={image.thumbnail} alt="" className="rounded-lg object-cover w-full h-full" />
                                     </Link>
                                 </SwiperSlide>
                             ))

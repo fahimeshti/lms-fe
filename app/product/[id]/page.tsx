@@ -34,6 +34,7 @@ const SingleProduct = () => {
     const router = useRouter();
     const params = useSearchParams();
     const action = params.get('action');
+    const [showFullDescription, setShowFullDescription] = useState(false);
 
     const { data: courseData, loading } = useApi<any, any>(
         getPublicCourse,
@@ -170,7 +171,17 @@ const SingleProduct = () => {
 
                                     {course?.description ?
                                         <div className="text-gray-400 text-base font-medium mt-8 whitespace-pre-line">
-                                            {course?.description}
+                                            {showFullDescription || course.description.length <= 1000
+                                                ? course.description
+                                                : `${course.description.substring(0, 1000)}...`}
+                                            {course.description.length > 1000 && (
+                                                <button
+                                                    onClick={() => setShowFullDescription(!showFullDescription)}
+                                                    className="text-primary ml-2"
+                                                >
+                                                    {showFullDescription ? "See Less" : "See More"}
+                                                </button>
+                                            )}
                                         </div>
                                         :
                                         <Skeleton className="w-full h-5 opacity-10 mt-8" />

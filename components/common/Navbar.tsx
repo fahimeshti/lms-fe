@@ -76,12 +76,12 @@ export default function Navbar() {
 
     return (
         <Suspense>
-            <nav className="bg-primary text-white border-b border-b-primary sticky top-0 z-[99]">
+            <nav className="bg-white text-gray-800 border-b sticky top-0 z-[99]">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-16">
                         {/* Logo */}
                         <div className="flex-shrink-0">
-                            <Link href="/" className="text-2xl font-bold text-white uppercase">
+                            <Link href="/" className="text-2xl font-bold uppercase">
                                 {SITE_NAME}
                             </Link>
                         </div>
@@ -89,7 +89,7 @@ export default function Navbar() {
                         {/* Desktop Navigation */}
                         <div className="hidden xmd:flex items-center gap-8">
                             <div className="relative min-w-80 z-10">
-                                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary-text size-5" />
+                                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 size-5" />
                                 <Input
                                     type="text"
                                     onKeyDown={(e) => {
@@ -102,7 +102,7 @@ export default function Navbar() {
                                     value={searchInput}
                                     ref={searchInputRef}
                                     placeholder="কোর্স, কিংবা স্কুল প্রোগ্রাম সার্চ করুন..."
-                                    className={`pl-10 bg-primary border-primary-text rounded-full ${isSearchBoxOpen ? "rounded-bl-none bg-white text-gray-700 placeholder:text-gray-700 rounded-br-none rounded-tl-2xl rounded-tr-2xl z-50" : "text-primary-text placeholder:text-primary-text"}`}
+                                    className={`pl-10 bg-transparent border-gray-300 font-medium rounded-full ${isSearchBoxOpen ? "rounded-bl-none bg-white text-gray-700 placeholder:text-gray-500 rounded-br-none rounded-tl-2xl rounded-tr-2xl z-50" : "text-primary-text placeholder:text-gray-500"}`}
                                     onFocus={() => setIsSearchBoxOpen(true)}
                                 />
                                 {searchInput &&
@@ -154,7 +154,7 @@ export default function Navbar() {
                                     <div key={item.name} className="relative group">
                                         {item.submenu ? (
                                             <>
-                                                <button className="text-white hover:text-secondary px-3 py-1.5 rounded-md text-sm font-medium flex items-center ring-focus peer transition-colors duration-200">
+                                                <button className="text-gray-800 hover:text-primary px-3 py-1.5 rounded-md text-sm font-medium flex items-center ring-focus peer transition-colors duration-200">
                                                     {item.name}
                                                     <ChevronDown className="ml-1 h-4 w-4" />
                                                 </button>
@@ -174,7 +174,7 @@ export default function Navbar() {
                                                 </div>
                                             </>
                                         ) : (
-                                            <Link href={item.href} className={`hover:text-secondary px-3 py-2 rounded-md text-sm font-medium ring-focus transition-colors duration-200 ${pathname === item.href ? 'text-secondary' : 'text-white'
+                                            <Link href={item.href} className={`hover:text-primary px-3 py-2 rounded-md text-sm font-medium ring-focus transition-colors duration-200 ${pathname === item.href ? 'text-primary' : 'text-gray-700'
                                                 }`}>
                                                 {item.name}
                                             </Link>

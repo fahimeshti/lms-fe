@@ -23,7 +23,7 @@ export default {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
-          text: "#cbc2ff",
+          text: "rgb(31 41 55)", // #cbc2ff
           hover: "#4e38dcdc",
         },
         secondary: {
