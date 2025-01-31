@@ -19,20 +19,20 @@ export default function Footer() {
 
                     {/* Second Column: Important Links */}
                     <div>
-                        <h3 className="text-sm font-semibold text-primary-text uppercase tracking-wider">গুরুত্বপূর্ণ লিঙ্কসঃ</h3>
+                        <h3 className="text-base font-semibold text-primary-text uppercase tracking-wider">গুরুত্বপূর্ণ লিঙ্কসঃ</h3>
                         <ul className="mt-4 space-y-1">
                             <li>
-                                <Link href="/#" className="text-base text-primary-text hover:text-primary transition-colors duration-200">
+                                <Link href="/#" className="text-base text-primary-text/70 hover:text-primary transition-colors duration-200">
                                     ব্যবহারকারীর শর্তাবলি
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/#" className="text-base text-primary-text hover:text-primary transition-colors duration-200">
+                                <Link href="/#" className="text-base text-primary-text/70 hover:text-primary transition-colors duration-200">
                                     প্রাইভেসি পলিসি
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/#" className="text-base text-primary-text hover:text-primary transition-colors duration-200">
+                                <Link href="/#" className="text-base text-primary-text/70 hover:text-primary transition-colors duration-200">
                                     রিফান্ড পলিসি
                                 </Link>
                             </li>
@@ -41,20 +41,20 @@ export default function Footer() {
 
                     {/* Third Column: Additional Links */}
                     <div>
-                        <h3 className="text-sm font-semibold text-primary-text uppercase tracking-wider">অন্যান্য</h3>
+                        <h3 className="text-base font-semibold text-primary-text uppercase tracking-wider">অন্যান্য</h3>
                         <ul className="mt-4 space-y-1">
                             <li>
-                                <Link href="/blog" className="text-base text-primary-text hover:text-primary transition-colors duration-200">
+                                <Link href="/blog" className="text-base text-primary-text/70 hover:text-primary transition-colors duration-200">
                                     ব্লগ
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/#" className="text-base text-primary-text hover:text-primary transition-colors duration-200">
+                                <Link href="/#" className="text-base text-primary-text/70 hover:text-primary transition-colors duration-200">
                                     ক্যারিয়ার
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/#" className="text-base text-primary-text hover:text-primary transition-colors duration-200">
+                                <Link href="/#" className="text-base text-primary-text/70 hover:text-primary transition-colors duration-200">
                                     ফ্রি ডাউনলোড
                                 </Link>
                             </li>
@@ -63,9 +63,9 @@ export default function Footer() {
 
                     {/* Fourth Column: Contact Information */}
                     <div>
-                        <h3 className="text-sm font-semibold text-primary-text uppercase tracking-wider">আমাদের যোগাযোগ মাধ্যম</h3>
+                        <h3 className="text-base font-semibold text-primary-text uppercase tracking-wider">আমাদের যোগাযোগ মাধ্যম</h3>
                         <ul className="mt-4 space-y-1">
-                            <li className='text-primary-text'>
+                            <li className='text-primary-text/70'>
                                 কল করুন:{" "}
                                 <Link
                                     href="tel:+8801234525454"
@@ -73,7 +73,7 @@ export default function Footer() {
                                     +8801234525454
                                 </Link>
                             </li>
-                            <li className='text-primary-text'>
+                            <li className='text-primary-text/70'>
                                 ইমেইল:{" "}
                                 <Link
                                     href="mailto:support@yourmail.com"
@@ -105,7 +105,7 @@ export default function Footer() {
                 {/* border-[rgb(84_61_237)] */}
                 <div className="mt-8 border-t py-4 md:flex md:items-center md:justify-center">
                     <p className="mt-4 text-base text-primary-text md:mt-0 md:order-1">
-                        স্বত্ব &copy; {getLatestYearInBangla()} <a href='https://github.com/fahimeshti' target='_blank' className='text-primary'>Eshtiyak Fahim</a> কর্তৃক সর্বস্বত্ব সংরক্ষিত
+                        স্বত্ব &copy; {getLatestYearInBangla()} <a href='https://github.com/fahimeshti' target='_blank' className='text-primary'>{SITE_NAME}</a> কর্তৃক সর্বস্বত্ব সংরক্ষিত
                     </p>
                 </div>
             </div>
