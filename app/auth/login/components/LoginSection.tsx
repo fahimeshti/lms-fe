@@ -42,8 +42,8 @@ const LoginSection = () => {
         resolver: zodResolver(FormSchema),
         mode: "onChange",
         defaultValues: {
-            email: '',
-            password: '',
+            email: 'conafel820@makroyal.com',
+            password: '123456',
         },
     });
     const { formState } = form;
