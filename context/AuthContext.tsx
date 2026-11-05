@@ -3,6 +3,7 @@ import { createContext, useContext, useState, useEffect, ReactNode } from 'react
 import { getAccessToken } from '@/utils/storage';
 import { AUTH_TOKEN_KEY, USER_PROFILE_KEY } from '@/utils/constants';
 import Cookies from 'js-cookie';
+import { signOut } from '@/utils/api/auth';
 
 interface AuthContextType {
     isAuthenticated: boolean;
@@ -45,7 +46,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     };
 
     const logout = () => {
-        // localStorage.removeItem(AUTH_TOKEN_KEY);
+        // Revoke the session on the server (best effort).
+        const current = getAccessToken();
+        if (current) signOut(current).catch(() => {});
         Cookies.remove(AUTH_TOKEN_KEY);
         localStorage.removeItem(USER_PROFILE_KEY);
         setToken(null);
