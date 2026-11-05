@@ -13,27 +13,12 @@ const CODE_LENGTH = 6;
 const RESEND_SECONDS = 60;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-// Test login convenience: pre-fills the test user's email and the fixed code
-// the backend issues to it (NEXT_PUBLIC_TEST_LOGIN_EMAIL / _CODE).
-// Always on for localhost; on deployed sites only after opening the login
-// page with ?test=1 (remembered for the browser tab), so real students see
-// an empty form.
+// Test login convenience: when NEXT_PUBLIC_TEST_LOGIN_EMAIL / _CODE are set,
+// every login form is pre-filled with the test user's email and the fixed
+// code the backend issues to it. Remove both variables before launch.
 const TEST_EMAIL = process.env.NEXT_PUBLIC_TEST_LOGIN_EMAIL ?? "";
 const TEST_CODE = process.env.NEXT_PUBLIC_TEST_LOGIN_CODE ?? "";
-const TEST_MODE_KEY = "_test_login";
-
-const isTestMode = () => {
-  if (typeof window === "undefined" || !TEST_EMAIL) return false;
-  if (["localhost", "127.0.0.1"].includes(window.location.hostname)) return true;
-  try {
-    if (new URLSearchParams(window.location.search).get("test") === "1") {
-      sessionStorage.setItem(TEST_MODE_KEY, "1");
-    }
-    return sessionStorage.getItem(TEST_MODE_KEY) === "1";
-  } catch {
-    return false;
-  }
-};
+const isTestMode = () => !!TEST_EMAIL;
 
 const testCodeFor = (email: string) =>
   TEST_CODE &&
