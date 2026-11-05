@@ -13,12 +13,32 @@ const CODE_LENGTH = 6;
 const RESEND_SECONDS = 60;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-// Local testing convenience (set only in .env.local, never in production):
-// pre-fills the fixed code the backend issues to the test email.
+// Test login convenience: pre-fills the test user's email and the fixed code
+// the backend issues to it (NEXT_PUBLIC_TEST_LOGIN_EMAIL / _CODE).
+// Always on for localhost; on deployed sites only after opening the login
+// page with ?test=1 (remembered for the browser tab), so real students see
+// an empty form.
 const TEST_EMAIL = process.env.NEXT_PUBLIC_TEST_LOGIN_EMAIL ?? "";
 const TEST_CODE = process.env.NEXT_PUBLIC_TEST_LOGIN_CODE ?? "";
+const TEST_MODE_KEY = "_test_login";
+
+const isTestMode = () => {
+  if (typeof window === "undefined" || !TEST_EMAIL) return false;
+  if (["localhost", "127.0.0.1"].includes(window.location.hostname)) return true;
+  try {
+    if (new URLSearchParams(window.location.search).get("test") === "1") {
+      sessionStorage.setItem(TEST_MODE_KEY, "1");
+    }
+    return sessionStorage.getItem(TEST_MODE_KEY) === "1";
+  } catch {
+    return false;
+  }
+};
+
 const testCodeFor = (email: string) =>
-  TEST_EMAIL && TEST_CODE && email.trim().toLowerCase() === TEST_EMAIL.toLowerCase()
+  TEST_CODE &&
+  isTestMode() &&
+  email.trim().toLowerCase() === TEST_EMAIL.toLowerCase()
     ? TEST_CODE
     : "";
 
@@ -30,12 +50,15 @@ const EmailCodeForm = ({ mode }: { mode: "login" | "signup" }) => {
   const { login } = useAuth();
   const [step, setStep] = useState<"email" | "code">("email");
   const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState(
-    mode === "login" ? TEST_EMAIL : ""
-  );
+  const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
   const [cooldown, setCooldown] = useState(0);
+
+  // Pre-fill the test email (client-side only, see isTestMode).
+  useEffect(() => {
+    if (mode === "login" && isTestMode()) setEmail((e) => e || TEST_EMAIL);
+  }, [mode]);
 
   useEffect(() => {
     if (cooldown <= 0) return;
