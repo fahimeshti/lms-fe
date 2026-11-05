@@ -129,7 +129,7 @@ export default function Navbar() {
                                             <span className='text-sm font-medium block ml-4 text-gray-500'>Popular searches</span>
                                             <ul className='my-2 space-y-0'>
                                                 {
-                                                    ['SSC', 'HSC 2025', 'HSC'].map((query) => (
+                                                    ['HSC', 'SSC', 'HSC 2025'].map((query) => (
                                                         <li
                                                             key={query}
                                                             className='flex items-center gap-2 hover:bg-gray-100 transition-colors duration-150 px-4 py-2.5 cursor-pointer'
